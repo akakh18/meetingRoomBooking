@@ -1,21 +1,36 @@
 package com.example.meetingroombooking.model.dto;
 
 
+import com.example.meetingroombooking.model.entity.User;
+
 // Just for testing
 public class UserDto {
-    private Integer userId;
-    private String name;
+    private final String username;
+    private final String fullName;
+    private final String password;
 
-    public UserDto(Integer userId, String name) {
-        this.userId = userId;
-        this.name = name;
+
+    public UserDto(String username, String fullName, String password) {
+        this.username = username;
+        this.fullName = fullName;
+        this.password = password;
     }
 
-    public Integer getUserId() {
-        return userId;
+    public UserDto(User user) {
+        this.username = user.getUsername();
+        this.fullName = user.getFullName();
+        this.password = user.getPassword();
     }
 
-    public String getName() {
-        return name;
+    public String getUsername() {
+        return username;
+    }
+
+    public String getFullName() {
+        return fullName;
+    }
+
+    public String getPassword() {
+        return password;
     }
 }
