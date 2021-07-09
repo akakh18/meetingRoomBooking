@@ -1,9 +1,7 @@
 package com.example.meetingroombooking.model.entity;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.List;
 
 @Entity
 public class Room {
@@ -12,9 +10,15 @@ public class Room {
     private Long id;
     private Integer capacity;
 
+    public Room() {
+    }
+
     public Room(Integer capacity) {
         this.capacity = capacity;
     }
+
+    @OneToMany(mappedBy = "room")
+    private List<Invitation> invitations;
 
     public void setId(Long id) {
         this.id = id;
