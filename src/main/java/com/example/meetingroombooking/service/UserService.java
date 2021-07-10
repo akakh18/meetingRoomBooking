@@ -4,6 +4,8 @@ import com.example.meetingroombooking.model.dto.UserDto;
 import com.example.meetingroombooking.model.entity.User;
 import com.example.meetingroombooking.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -11,10 +13,12 @@ import java.util.List;
 
 @Service
 public class UserService {
+    PasswordEncoder passwordEncoder;
     UserRepository userRepository;
 
     @Autowired
-    public UserService(UserRepository userRepository) {
+    public UserService(UserRepository userRepository/*, PasswordEncoder passwordEncoder*/) {
+        //this.passwordEncoder = passwordEncoder;
         this.userRepository = userRepository;
     }
 
