@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 //import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -25,8 +26,9 @@ public class UserService {
         this.userRepository = userRepository;
     }
 
+    @Transactional
     public UserDto createNewUser(UserDto user) {
-        userRepository.insertUser(user.getUsername(), user.getFullName(), user.getPassword());
+        userRepository.save(user.toEntity());
         return user;
     }
 

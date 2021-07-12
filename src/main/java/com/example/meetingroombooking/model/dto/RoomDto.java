@@ -12,4 +12,12 @@ public class RoomDto {
     public RoomDto(Room room) {
         this.capacity = room.getCapacity();
     }
+
+    public Room toEntity() {
+        Room room = new Room();
+        room.setCapacity(capacity);
+
+        return room;
+    }
+
 }

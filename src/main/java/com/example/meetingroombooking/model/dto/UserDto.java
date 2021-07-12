@@ -22,6 +22,15 @@ public class UserDto {
         this.password = user.getPassword();
     }
 
+    public User toEntity() {
+        User user = new User();
+        user.setUsername(username);
+        user.setFullName(fullName);
+        user.setPassword(password);
+
+        return user;
+    }
+
     public String getUsername() {
         return username;
     }

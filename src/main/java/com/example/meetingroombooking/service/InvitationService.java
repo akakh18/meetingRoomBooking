@@ -1,6 +1,7 @@
 package com.example.meetingroombooking.service;
 
 import com.example.meetingroombooking.model.dto.InvitationDto;
+import com.example.meetingroombooking.model.dto.RoomDto;
 import com.example.meetingroombooking.model.dto.UserDto;
 import com.example.meetingroombooking.model.entity.Invitation;
 import com.example.meetingroombooking.model.entity.User;
@@ -40,6 +41,10 @@ public class InvitationService {
         }
 
         return result;
+    }
+
+    public void inviteTest(UserDto host, UserDto guest, RoomDto room) {
+        invitationRepository.insertInvitation(host.toEntity(), guest.toEntity(), room.toEntity());
     }
 
 }

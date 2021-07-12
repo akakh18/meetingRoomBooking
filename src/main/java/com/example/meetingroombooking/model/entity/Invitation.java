@@ -3,6 +3,7 @@ package com.example.meetingroombooking.model.entity;
 import javax.persistence.*;
 
 @Entity
+@Table(name = "invitations")
 public class Invitation {
     @Id
     private Long id;
@@ -30,5 +31,21 @@ public class Invitation {
 
     public User getGuest() {
         return guest;
+    }
+
+    public Room getRoom() {
+        return room;
+    }
+
+    public void setGuest(User guest) {
+        this.guest = guest;
+    }
+
+    public void setHost(User host) {
+        this.host = host;
+    }
+
+    public void setRoom(Room room) {
+        this.room = room;
     }
 }

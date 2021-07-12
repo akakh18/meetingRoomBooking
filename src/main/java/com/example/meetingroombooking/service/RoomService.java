@@ -6,6 +6,7 @@ import com.example.meetingroombooking.repository.RoomRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,10 +19,6 @@ public class RoomService {
         this.roomRepository = roomRepository;
     }
 
-    public RoomDto createRoom(RoomDto room) {
-        return null;
-    }
-
     public List<RoomDto> getAllRooms() {
         List<RoomDto> result = new ArrayList<>();
 
@@ -32,5 +29,11 @@ public class RoomService {
         }
 
         return result;
+    }
+
+    @Transactional
+    public RoomDto createRoom(RoomDto room) {
+        roomRepository.save(room.toEntity());
+        return room;
     }
 }

@@ -33,4 +33,8 @@ public class Room {
     public Integer getCapacity() {
         return capacity;
     }
+
+    public void setCapacity(Integer capacity) {
+        this.capacity = capacity;
+    }
 }

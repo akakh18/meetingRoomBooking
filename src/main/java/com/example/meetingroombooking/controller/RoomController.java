@@ -4,6 +4,7 @@ import com.example.meetingroombooking.model.dto.BookingDto;
 import com.example.meetingroombooking.model.dto.RoomDto;
 import com.example.meetingroombooking.service.RoomService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -27,6 +28,11 @@ public class RoomController {
     @DeleteMapping
     public void removeBooking(@RequestBody BookingDto booking) {
 
+    }
+
+    @PostMapping
+    public ResponseEntity<RoomDto> createRoom(@RequestBody RoomDto room) {
+        return ResponseEntity.status(HttpStatus.OK).body(roomService.createRoom(room));
     }
 
 }

@@ -1,6 +1,7 @@
 package com.example.meetingroombooking.controller;
 
 import com.example.meetingroombooking.model.dto.InvitationDto;
+import com.example.meetingroombooking.model.dto.RoomDto;
 import com.example.meetingroombooking.model.dto.UserDto;
 import com.example.meetingroombooking.model.entity.User;
 import com.example.meetingroombooking.service.InvitationService;
@@ -23,11 +24,16 @@ public class InvitationController {
     }
 
     @PostMapping
-    public void invite(@RequestBody UserDto user) {
-        invitationService.invite(user);
+    public void invite(@RequestBody UserDto guest) {
+        invitationService.invite(guest);
     }
 
-    @GetMapping("")
+    @PostMapping("/test")
+    public void inviteTest(@RequestBody UserDto host, @RequestBody UserDto guest, @RequestBody RoomDto room) {
+        invitationService.inviteTest(host, guest, room);
+    }
+
+    @GetMapping("/get_all")
     public ResponseEntity<List<InvitationDto>> getAllInvitations() {
         return ResponseEntity.status(HttpStatus.OK).body(invitationService.getAllInvitations());
     }

@@ -44,4 +44,15 @@ public class User {
         return password;
     }
 
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public void setFullName(String fullName) {
+        this.fullName = fullName;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
 }
