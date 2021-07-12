@@ -3,17 +3,20 @@ package com.example.meetingroombooking.service;
 import com.example.meetingroombooking.model.dto.UserDto;
 import com.example.meetingroombooking.model.entity.User;
 import com.example.meetingroombooking.repository.UserRepository;
+import org.apache.tomcat.util.net.openssl.ciphers.Authentication;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
+//import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+//import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class UserService {
-    PasswordEncoder passwordEncoder;
+//    PasswordEncoder passwordEncoder;
     UserRepository userRepository;
 
     @Autowired
@@ -37,5 +40,13 @@ public class UserService {
         }
 
         return result;
+    }
+
+    public Optional<User> getCurrentUser() {
+//        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+//        String username = (String)authentication.getPrincipal();
+//
+//        return userRepository.getUserByUsername(username);
+        return Optional.empty();
     }
 }

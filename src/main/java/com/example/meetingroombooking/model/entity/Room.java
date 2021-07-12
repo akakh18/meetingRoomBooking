@@ -8,7 +8,12 @@ public class Room {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @Column
     private Integer capacity;
+
+    @OneToMany(mappedBy = "room")
+    private List<Invitation> invitations;
 
     public Room() {
     }
@@ -16,9 +21,6 @@ public class Room {
     public Room(Integer capacity) {
         this.capacity = capacity;
     }
-
-    @OneToMany(mappedBy = "room")
-    private List<Invitation> invitations;
 
     public void setId(Long id) {
         this.id = id;

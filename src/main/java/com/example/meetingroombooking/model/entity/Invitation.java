@@ -23,4 +23,12 @@ public class Invitation {
     public Long getId() {
         return id;
     }
+
+    public User getHost() {
+        return host;
+    }
+
+    public User getGuest() {
+        return guest;
+    }
 }
