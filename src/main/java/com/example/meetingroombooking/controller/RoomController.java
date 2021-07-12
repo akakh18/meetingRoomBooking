@@ -36,5 +36,9 @@ public class RoomController {
         return ResponseEntity.status(HttpStatus.OK).body(roomService.createNewRoom(room));
     }
 
+    @PostMapping(path = "{roomId}")
+    public ResponseEntity<InvitationDto> createInvitation(@PathVariable("roomId") Long roomId, @RequestBody UserDto guest) {
+        return ResponseEntity.status(HttpStatus.OK).body(roomService.createInvitation(roomId,guest));
+    }
 
 }
