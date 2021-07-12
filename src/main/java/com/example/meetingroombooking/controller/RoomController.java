@@ -1,7 +1,9 @@
 package com.example.meetingroombooking.controller;
 
 import com.example.meetingroombooking.model.dto.BookingDto;
+import com.example.meetingroombooking.model.dto.InvitationDto;
 import com.example.meetingroombooking.model.dto.RoomDto;
+import com.example.meetingroombooking.model.dto.UserDto;
 import com.example.meetingroombooking.service.RoomService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -13,26 +15,26 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/rooms")
 public class RoomController {
-    private RoomService roomService;
+    private final RoomService roomService;
 
     @Autowired
     public RoomController(RoomService roomService) {
         this.roomService = roomService;
     }
 
-    @GetMapping
+    @GetMapping("")
     public ResponseEntity<List<RoomDto> > getAllRooms() {
-        return null;
+        return ResponseEntity.status(HttpStatus.OK).body(roomService.getAllRooms());
     }
 
     @DeleteMapping
     public void removeBooking(@RequestBody BookingDto booking) {
-
     }
 
     @PostMapping
-    public ResponseEntity<RoomDto> createRoom(@RequestBody RoomDto room) {
-        return ResponseEntity.status(HttpStatus.OK).body(roomService.createRoom(room));
+    public ResponseEntity<RoomDto> createNewRoom(@RequestBody RoomDto room) {
+        return ResponseEntity.status(HttpStatus.OK).body(roomService.createNewRoom(room));
     }
+
 
 }

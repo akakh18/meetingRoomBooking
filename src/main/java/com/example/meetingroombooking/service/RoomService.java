@@ -32,7 +32,7 @@ public class RoomService {
     }
 
     @Transactional
-    public RoomDto createRoom(RoomDto room) {
+    public RoomDto createNewRoom(RoomDto room) {
         roomRepository.save(room.toEntity());
         return room;
     }

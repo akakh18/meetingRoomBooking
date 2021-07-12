@@ -3,7 +3,6 @@ package com.example.meetingroombooking.model.dto;
 
 import com.example.meetingroombooking.model.entity.User;
 
-// Just for testing
 public class UserDto {
     private final String username;
     private final String fullName;
