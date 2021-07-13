@@ -27,13 +27,24 @@ public class RoomController {
         return ResponseEntity.status(HttpStatus.OK).body(roomService.getAllRooms());
     }
 
-    @DeleteMapping
-    public void removeBooking(@RequestBody BookingDto booking) {
-    }
-
     @PostMapping
     public ResponseEntity<RoomDto> createNewRoom(@RequestBody RoomDto room) {
         return ResponseEntity.status(HttpStatus.OK).body(roomService.createNewRoom(room));
+    }
+
+    @PutMapping("{roomId}")
+    public ResponseEntity<RoomDto> updateRoom(@PathVariable("roomId") Long roomId, @RequestBody RoomDto newRoom) {
+        return ResponseEntity.status(HttpStatus.OK).body(roomService.updateRoom(roomId, newRoom));
+    }
+
+    @DeleteMapping("{roomId}")
+    public void deleteRoom(@PathVariable("roomId") Long roomId) {
+        roomService.deleteRoom(roomId);
+    }
+
+    @DeleteMapping
+    public void removeBooking(@RequestBody BookingDto booking) {
+
     }
 
     @PostMapping(path = "{roomId}")

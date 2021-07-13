@@ -46,8 +46,23 @@ public class RoomService {
         return room;
     }
 
+    public RoomDto updateRoom(Long id, RoomDto newRoomDto) {
+        Room newRoom = new Room();
+        newRoom.setId(id);
+        newRoom.setCapacity(newRoomDto.getCapacity());
+        roomRepository.save(newRoom);
+
+        return newRoomDto;
+    }
+
+    public void deleteRoom(Long id) {
+        Room room = roomRepository.findById(id).orElseThrow(() -> new RuntimeException("Room does not exist"));
+
+        roomRepository.delete(room);
+    }
+
     public InvitationDto createInvitation(Long roomId, UserDto guest) {
-        Room room = roomRepository.getRoomById(roomId);
+        Room room = roomRepository.findById(roomId).orElseThrow(() -> new RuntimeException("Room does not exist"));
         User host = userService.getCurrentUser()
                 .orElseThrow(() -> new RuntimeException("Authenticated user does not exist"));
 
