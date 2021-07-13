@@ -16,10 +16,10 @@ public class Booking {
     @ManyToOne
     Room room;
 
-    @Column
+    @Column(nullable = false)
     private String startingDate;
 
-    @Column
+    @Column(nullable = false)
     private String endingDate;
 
 

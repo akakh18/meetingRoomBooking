@@ -1,9 +1,6 @@
 package com.example.meetingroombooking.controller;
 
-import com.example.meetingroombooking.model.dto.BookingDto;
-import com.example.meetingroombooking.model.dto.InvitationDto;
-import com.example.meetingroombooking.model.dto.RoomDto;
-import com.example.meetingroombooking.model.dto.UserDto;
+import com.example.meetingroombooking.model.dto.*;
 import com.example.meetingroombooking.service.RoomService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -42,9 +39,9 @@ public class RoomController {
         roomService.deleteRoom(roomId);
     }
 
-    @PostMapping
-    public ResponseEntity<BookingDto> createBooking() {
-        return null;
+    @PostMapping("{roomId}/book")
+    public ResponseEntity<BookingDto> createBooking(@PathVariable Long roomId, @RequestBody Dates dates) {
+        return ResponseEntity.status(HttpStatus.OK).body(roomService.createBooking(roomId, dates));
     }
 
     @DeleteMapping
