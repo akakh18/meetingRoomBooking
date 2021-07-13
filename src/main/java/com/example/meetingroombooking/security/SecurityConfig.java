@@ -8,26 +8,33 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private final DataUserDetailsService userDetailsService;
+    private final JwtFilter jwtFilter;
 
     @Autowired
-    public SecurityConfig(DataUserDetailsService userDetailsService) {
+    public SecurityConfig(DataUserDetailsService userDetailsService, JwtFilter jwtFilter) {
         this.userDetailsService = userDetailsService;
+        this.jwtFilter = jwtFilter;
     }
 
-//    @Override
-//    protected void configure(HttpSecurity http) throws Exception {
-//        http.csrf().disable()
-//                .authorizeRequests().antMatchers("/authenticate", "/v1/user").permitAll()
-//                .anyRequest().authenticated();
-//    }
+    @Override
+    protected void configure(HttpSecurity http) throws Exception {
+        http.csrf().disable()
+                .authorizeRequests().antMatchers("/v1/session", "/v1/user").permitAll()
+                .anyRequest().authenticated()
+                .and().sessionManagement()
+                .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+
+        http.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
+    }
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {

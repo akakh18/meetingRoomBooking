@@ -17,7 +17,7 @@ public class DataUserDetailsService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        User user = userRepository.getUserByUsername(username)
+        User user = userRepository.findByUsername(username)
                 .orElseThrow(() -> new RuntimeException("wrong_credentials"));
 
         return new DataUserDetails(user);

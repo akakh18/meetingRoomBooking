@@ -4,11 +4,11 @@ import com.example.meetingroombooking.model.dto.UserDto;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-public class UserResponse {
+public class SuccessResponse {
     //@JsonProperty(namespace = "result")
     private final Object result;
 
-    public UserResponse(Object result) {
+    public SuccessResponse(Object result) {
         this.result = result;
     }
 

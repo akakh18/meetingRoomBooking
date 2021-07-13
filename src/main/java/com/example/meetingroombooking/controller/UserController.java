@@ -1,8 +1,7 @@
 package com.example.meetingroombooking.controller;
 
 import com.example.meetingroombooking.model.dto.UserDto;
-import com.example.meetingroombooking.model.request.RequestForm;
-import com.example.meetingroombooking.model.response.UserResponse;
+import com.example.meetingroombooking.model.response.SuccessResponse;
 import com.example.meetingroombooking.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -43,7 +42,7 @@ public class UserController {
     }
 
     @GetMapping
-    public ResponseEntity<List<UserResponse>> getAllUsers() {
+    public ResponseEntity<List<SuccessResponse>> getAllUsers() {
         return ResponseEntity.status(HttpStatus.OK).body(userService.getAllUsers());
     }
 
