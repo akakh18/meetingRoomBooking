@@ -2,6 +2,7 @@ package com.example.meetingroombooking.service;
 
 import com.example.meetingroombooking.model.dto.UserDto;
 import com.example.meetingroombooking.model.entity.User;
+import com.example.meetingroombooking.model.response.UserResponse;
 import com.example.meetingroombooking.repository.UserRepository;
 import org.apache.tomcat.util.net.openssl.ciphers.Authentication;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,13 +33,13 @@ public class UserService {
         return user;
     }
 
-    public List<UserDto> getAllUsers() {
-        ArrayList<UserDto> result = new ArrayList<>();
+    public List<UserResponse> getAllUsers() {
+        ArrayList<UserResponse> result = new ArrayList<>();
 
         List<User> users = userRepository.findAll();
 
         for(User user : users) {
-            result.add(new UserDto(user));
+            result.add(new UserResponse(new UserDto(user)));
         }
 
         return result;

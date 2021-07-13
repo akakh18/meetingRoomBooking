@@ -2,6 +2,7 @@ package com.example.meetingroombooking.model.dto;
 
 
 import com.example.meetingroombooking.model.entity.User;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 public class UserDto {
     private final String username;
@@ -25,7 +26,8 @@ public class UserDto {
         User user = new User();
         user.setUsername(username);
         user.setFullName(fullName);
-        user.setPassword(password);
+        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+        user.setPassword(encoder.encode(password));
 
         return user;
     }

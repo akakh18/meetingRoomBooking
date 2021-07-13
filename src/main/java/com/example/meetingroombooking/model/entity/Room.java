@@ -13,7 +13,7 @@ public class Room {
     @Column(nullable = false)
     private Integer capacity;
 
-    @OneToMany(mappedBy = "room")
+    @OneToMany(mappedBy = "room", cascade = CascadeType.REMOVE)
     private List<Invitation> invitations;
 
     public Room() {
