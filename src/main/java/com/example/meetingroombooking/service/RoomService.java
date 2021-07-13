@@ -21,6 +21,9 @@ public class RoomService {
     private final UserService userService;
     private final InvitationRepository invitationRepository;
 
+    private static final String ROOM_NOT_FOUND = "Room does not exist";
+    private static final String USER_NOT_FOUND = "Authenticated user does not exist";
+
     @Autowired
     public RoomService(RoomRepository roomRepository, UserService userService, InvitationRepository invitationRepository) {
         this.roomRepository = roomRepository;
@@ -56,15 +59,14 @@ public class RoomService {
     }
 
     public void deleteRoom(Long id) {
-        Room room = roomRepository.findById(id).orElseThrow(() -> new RuntimeException("Room does not exist"));
-
+        Room room = roomRepository.findById(id).orElseThrow(() -> new RuntimeException(ROOM_NOT_FOUND));
         roomRepository.delete(room);
     }
 
     public InvitationDto createInvitation(Long roomId, UserDto guest) {
-        Room room = roomRepository.findById(roomId).orElseThrow(() -> new RuntimeException("Room does not exist"));
+        Room room = roomRepository.findById(roomId).orElseThrow(() -> new RuntimeException(ROOM_NOT_FOUND));
         User host = userService.getCurrentUser()
-                .orElseThrow(() -> new RuntimeException("Authenticated user does not exist"));
+                .orElseThrow(() -> new RuntimeException(USER_NOT_FOUND));
 
         Invitation newInvitation = new Invitation();
         newInvitation.setHost(host);

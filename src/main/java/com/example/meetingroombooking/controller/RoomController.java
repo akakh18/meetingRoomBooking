@@ -42,9 +42,13 @@ public class RoomController {
         roomService.deleteRoom(roomId);
     }
 
-    @DeleteMapping
-    public void removeBooking(@RequestBody BookingDto booking) {
+    @PostMapping
+    public ResponseEntity<BookingDto> createBooking() {
+        return null;
+    }
 
+    @DeleteMapping
+    public void abortBooking(@RequestBody BookingDto booking) {
     }
 
     @PostMapping(path = "{roomId}")

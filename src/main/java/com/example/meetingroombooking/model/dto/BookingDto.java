@@ -1,5 +1,6 @@
 package com.example.meetingroombooking.model.dto;
 
+import com.example.meetingroombooking.model.entity.Booking;
 import com.example.meetingroombooking.model.entity.Room;
 import com.example.meetingroombooking.model.entity.User;
 
@@ -16,6 +17,13 @@ public class BookingDto {
         this.room = room;
         this.starting = starting;
         this.ending = ending;
+    }
+
+    public BookingDto(Booking booking) {
+        this.user = booking.getUser();
+        this.room = booking.getRoom();
+        this.starting = booking.getStartingDate();
+        this.ending = booking.getEndingDate();
     }
 
     public User getUser() {
