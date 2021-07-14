@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class InvitationService {
@@ -40,7 +41,7 @@ public class InvitationService {
     }
 
     public void rejectInvitation(Long id) {
-        User user = userService.getCurrentUser().orElseThrow(() -> new RuntimeException("User does not exist"));
+        User user = getUser();
         Invitation invitation = invitationRepository.findById(id).orElseThrow(
                 () -> new RuntimeException("Such invitation does not exist")
         );
@@ -50,5 +51,23 @@ public class InvitationService {
         } else {
             throw new RuntimeException("You can't delete this invitation");
         }
+    }
+
+    public void abortInvitation(Long id) {
+        User user = getUser();
+        Invitation invitation = invitationRepository.findById(id).orElseThrow(
+                () -> new RuntimeException("Such invitation does not exist")
+        );
+
+        if(invitation.getHost().getId().equals(user.getId())) {
+            invitationRepository.delete(invitation);
+        } else {
+            throw new RuntimeException("You can't delete this invitation");
+        }
+    }
+
+    private User getUser() {
+        Optional<User> user = userService.getCurrentUser();
+        return userService.getCurrentUser().orElseThrow(() -> new RuntimeException("User does not exist"));
     }
 }

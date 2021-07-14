@@ -33,8 +33,13 @@ public class InvitationController {
         return null;
     }
 
-    @DeleteMapping("{invitationId}")
+    @DeleteMapping("reject/{invitationId}")
     public void rejectInvitation(@PathVariable("invitationId") Long invitationId) {
         invitationService.rejectInvitation(invitationId);
+    }
+
+    @DeleteMapping("abort/{invitationId}")
+    public void abortInvitation(@PathVariable("invitationId") Long invitationId) {
+        invitationService.abortInvitation(invitationId);
     }
 }
