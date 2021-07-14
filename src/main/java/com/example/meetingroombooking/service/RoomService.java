@@ -78,9 +78,10 @@ public class RoomService {
                 .orElseThrow(() -> new RuntimeException(USER_NOT_FOUND));
 
         Invitation newInvitation = new Invitation();
+        newInvitation.setId(new Long(1000));
         newInvitation.setHost(host);
         User guestUser = userRepository.findByUsername(guest.getUsername())
-                .orElseThrow(() -> new RuntimeException(USER_NOT_FOUND));
+                .orElseThrow(() -> new RuntimeException("User not found"));
         newInvitation.setGuest(guestUser);
         newInvitation.setRoom(room);
         invitationRepository.save(newInvitation);

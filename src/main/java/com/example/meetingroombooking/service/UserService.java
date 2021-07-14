@@ -4,6 +4,7 @@ import com.example.meetingroombooking.model.dto.UserDto;
 import com.example.meetingroombooking.model.entity.User;
 import com.example.meetingroombooking.model.response.SuccessResponse;
 import com.example.meetingroombooking.repository.UserRepository;
+import com.example.meetingroombooking.security.DataUserDetails;
 import org.springframework.beans.factory.annotation.Autowired;
 //import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 //import org.springframework.security.crypto.password.PasswordEncoder;
@@ -58,8 +59,9 @@ public class UserService {
 
     public Optional<User> getCurrentUser() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String username = (String)authentication.getPrincipal();
+        String username = ((DataUserDetails) authentication.getPrincipal()).getUsername();
 
+        System.out.printf("Username: %s\n", username);
         return userRepository.findByUsername(username);
     }
 }

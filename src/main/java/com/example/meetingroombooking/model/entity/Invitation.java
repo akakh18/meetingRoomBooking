@@ -6,6 +6,7 @@ import javax.persistence.*;
 @Table(name = "invitations")
 public class Invitation {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.REFRESH)

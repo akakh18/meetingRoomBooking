@@ -42,6 +42,11 @@ public class AuthenticateController {
             throw new Exception("wrong_credentials");
         }
 
+        UserDetails userDetails = userDetailsService.loadUserByUsername(user.getUsername());
+
+        String jwt = jwtUtil.generateToken(userDetails);
+
+        System.out.printf("JWT, %s: \n", jwt);
         return ResponseEntity.status(HttpStatus.OK).body(userService.getUserResponseByUsername(user.getUsername()));
     }
 }
