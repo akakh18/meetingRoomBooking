@@ -11,6 +11,8 @@ public class InvitationDto {
     private User guest;
     private Room room;
 
+    public InvitationDto(){}
+
     public InvitationDto(User host, User guest, Room room) {
         this.host = host;
         this.guest = guest;
@@ -30,5 +32,29 @@ public class InvitationDto {
         invitation.setRoom(this.room);
 
         return invitation;
+    }
+
+    public void setHost(User host) {
+        this.host = host;
+    }
+
+    public void setGuest(User guest) {
+        this.guest = guest;
+    }
+
+    public void setRoom(Room room) {
+        this.room = room;
+    }
+
+    public User getHost() {
+        return host;
+    }
+
+    public User getGuest() {
+        return guest;
+    }
+
+    public Room getRoom() {
+        return room;
     }
 }

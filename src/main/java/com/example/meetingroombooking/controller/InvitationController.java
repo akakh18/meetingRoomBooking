@@ -30,7 +30,7 @@ public class InvitationController {
 
     @GetMapping("")
     public ResponseEntity<List<InvitationDto>> getAllInvitationForUser(@RequestParam Long userId) {
-        return null;
+        return ResponseEntity.status(HttpStatus.OK).body(invitationService.getInvitationsForUser(userId));
     }
 
     @DeleteMapping("reject/{invitationId}")

@@ -12,9 +12,11 @@ public class Booking {
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.REFRESH)
+    @JoinColumn(name = "USER_ID", referencedColumnName = "ID")
     User user;
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.REFRESH)
+    @JoinColumn(name = "ROOM_ID", referencedColumnName = "ID")
     Room room;
 
     @Column(nullable = false)

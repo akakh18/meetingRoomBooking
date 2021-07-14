@@ -1,6 +1,7 @@
 package com.example.meetingroombooking.model.entity;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -21,10 +22,10 @@ public class User {
     private String password;
 
     @OneToMany(mappedBy = "guest", cascade = CascadeType.REFRESH)
-    private List<Invitation> invitations;
+    private List<Invitation> invitations = new ArrayList<>();
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.REFRESH)
-    private List<Booking> bookings;
+    private List<Booking> bookings = new ArrayList<>();
 
     public void setId(Long id) {
         this.id = id;

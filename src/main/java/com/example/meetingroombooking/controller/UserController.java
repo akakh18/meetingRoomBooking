@@ -23,8 +23,8 @@ public class UserController {
     }
 
     @PostMapping
-    public ResponseEntity<SuccessResponse> createUser(@RequestBody RequestForm<UserDto> user) {
-        return ResponseEntity.status(HttpStatus.OK).body(userService.createNewUser(user.getRequest()));
+    public ResponseEntity<SuccessResponse> createUser(@RequestBody UserDto user) {
+        return ResponseEntity.status(HttpStatus.OK).body(userService.createNewUser(user));
     }
 
     @GetMapping

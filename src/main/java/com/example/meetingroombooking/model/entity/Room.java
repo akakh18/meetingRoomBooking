@@ -15,6 +15,7 @@ public class Room {
     private Integer capacity;
 
     @OneToMany(mappedBy = "room", cascade = CascadeType.REFRESH)
+    @Column(name = "INVITATIONS")
     private List<Invitation> invitations;
 
     @OneToMany(mappedBy = "room", cascade = CascadeType.REFRESH)

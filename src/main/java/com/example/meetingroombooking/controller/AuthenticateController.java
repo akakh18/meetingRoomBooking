@@ -1,6 +1,8 @@
 package com.example.meetingroombooking.controller;
 
 import com.example.meetingroombooking.model.dto.UserDto;
+import com.example.meetingroombooking.model.entity.User;
+import com.example.meetingroombooking.model.response.SuccessResponse;
 import com.example.meetingroombooking.security.DataUserDetailsService;
 import com.example.meetingroombooking.security.JwtUtil;
 import com.example.meetingroombooking.service.UserService;
@@ -11,10 +13,9 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.Optional;
 
 @RestController
 @RequestMapping("v1/session")
@@ -48,5 +49,20 @@ public class AuthenticateController {
 
         System.out.printf("JWT, %s: \n", jwt);
         return ResponseEntity.status(HttpStatus.OK).body(userService.getUserResponseByUsername(user.getUsername()));
+    }
+
+    private static final String SESSION_NOT_FOUND = "session_not_found";
+
+    @GetMapping
+    public ResponseEntity<SuccessResponse> getAuthUser() {
+        Optional<User> userOptional = userService.getCurrentUser();
+        if(userOptional.isPresent()) {
+            User user = userService.getCurrentUser()
+                    .orElseThrow(() -> new RuntimeException("User Not Found"));
+
+            return ResponseEntity.status(HttpStatus.OK).body(new SuccessResponse(user));
+        }
+
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).body(new SuccessResponse(new String(SESSION_NOT_FOUND)));
     }
 }
