@@ -29,9 +29,12 @@ public class UserService {
     }
 
     @Transactional
-    public UserDto createNewUser(UserDto user) {
+    public SuccessResponse createNewUser(UserDto user) {
+        if(userRepository.findByUsername(user.getUsername()).isPresent())
+            throw new RuntimeException("User already exists");
+
         userRepository.save(user.toEntity());
-        return user;
+        return new SuccessResponse(user);
     }
 
     public List<SuccessResponse> getAllUsers() {

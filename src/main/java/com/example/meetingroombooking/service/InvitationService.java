@@ -16,20 +16,16 @@ import java.util.List;
 @Service
 public class InvitationService {
     private final InvitationRepository invitationRepository;
-    private final UserRepository userRepository;
+    private final UserService userService;
 
     @Autowired
-    public InvitationService(InvitationRepository invitationRepository, UserRepository userRepository) {
+    public InvitationService(InvitationRepository invitationRepository, UserService userService) {
         this.invitationRepository = invitationRepository;
-        this.userRepository = userRepository;
+        this.userService = userService;
     }
 
     public List<Invitation> getAllInvitationForUser(User user) {
         return invitationRepository.findAllByGuest(user);
-    }
-
-    public void invite(UserDto user) {
-
     }
 
     public List<InvitationDto> getAllInvitations() {
@@ -43,8 +39,16 @@ public class InvitationService {
         return result;
     }
 
-    public void inviteTest(UserDto host, UserDto guest, RoomDto room) {
-        invitationRepository.insertInvitation(host.toEntity(), guest.toEntity(), room.toEntity());
-    }
+    public void rejectInvitation(Long id) {
+        User user = userService.getCurrentUser().orElseThrow(() -> new RuntimeException("User does not exist"));
+        Invitation invitation = invitationRepository.findById(id).orElseThrow(
+                () -> new RuntimeException("Such invitation does not exist")
+        );
 
+        if(invitation.getGuest().getId().equals(user.getId())) {
+            invitationRepository.delete(invitation);
+        } else {
+            throw new RuntimeException("You can't delete this invitation");
+        }
+    }
 }

@@ -1,6 +1,7 @@
 package com.example.meetingroombooking.controller;
 
 import com.example.meetingroombooking.model.dto.UserDto;
+import com.example.meetingroombooking.model.request.RequestForm;
 import com.example.meetingroombooking.model.response.SuccessResponse;
 import com.example.meetingroombooking.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,31 +22,14 @@ public class UserController {
         this.userService = userService;
     }
 
-    private static final List<UserDto> USERS = Arrays.asList(
-            new UserDto("Avto", "avto", "123"),
-            new UserDto("Dato", "dato", "123"),
-            new UserDto("Leri", "leri", "123")
-    );
-
-    @GetMapping(path = "{username}")
-    public UserDto getUser(@PathVariable("username") String username) {
-        return USERS.stream()
-                .filter(user -> user.getUsername().equals(username))
-                .findFirst()
-                .orElseThrow(() -> new IllegalStateException("User does not exist"));
-    }
-
-
     @PostMapping
-    public ResponseEntity<UserDto> createUser(@RequestBody UserDto user) {
-        return ResponseEntity.status(HttpStatus.OK).body(userService.createNewUser(user));
+    public ResponseEntity<SuccessResponse> createUser(@RequestBody RequestForm<UserDto> user) {
+        return ResponseEntity.status(HttpStatus.OK).body(userService.createNewUser(user.getRequest()));
     }
 
     @GetMapping
     public ResponseEntity<List<SuccessResponse>> getAllUsers() {
         return ResponseEntity.status(HttpStatus.OK).body(userService.getAllUsers());
     }
-
-
 
 }

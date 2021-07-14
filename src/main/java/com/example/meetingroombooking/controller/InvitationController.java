@@ -23,16 +23,6 @@ public class InvitationController {
         this.invitationService = invitationService;
     }
 
-    @PostMapping
-    public void invite(@RequestBody UserDto guest) {
-        invitationService.invite(guest);
-    }
-
-    @PostMapping("/test")
-    public void inviteTest(@RequestBody UserDto host, @RequestBody UserDto guest, @RequestBody RoomDto room) {
-        invitationService.inviteTest(host, guest, room);
-    }
-
     @GetMapping("/get_all")
     public ResponseEntity<List<InvitationDto>> getAllInvitations() {
         return ResponseEntity.status(HttpStatus.OK).body(invitationService.getAllInvitations());
@@ -41,5 +31,10 @@ public class InvitationController {
     @GetMapping("")
     public ResponseEntity<List<InvitationDto>> getAllInvitationForUser(@RequestParam Long userId) {
         return null;
+    }
+
+    @DeleteMapping("{invitationId}")
+    public void rejectInvitation(@PathVariable("invitationId") Long invitationId) {
+        invitationService.rejectInvitation(invitationId);
     }
 }
