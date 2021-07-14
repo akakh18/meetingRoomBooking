@@ -8,12 +8,13 @@ import java.util.List;
 public class Room {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "ID")
     private Long id;
 
     @Column(nullable = false)
     private Integer capacity;
 
-    @OneToMany(mappedBy = "room", cascade = CascadeType.REMOVE)
+    @OneToMany(mappedBy = "room", cascade = CascadeType.REFRESH)
     private List<Invitation> invitations;
 
     public Room() {

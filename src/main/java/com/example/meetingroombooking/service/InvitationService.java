@@ -1,8 +1,6 @@
 package com.example.meetingroombooking.service;
 
 import com.example.meetingroombooking.model.dto.InvitationDto;
-import com.example.meetingroombooking.model.dto.RoomDto;
-import com.example.meetingroombooking.model.dto.UserDto;
 import com.example.meetingroombooking.model.entity.Invitation;
 import com.example.meetingroombooking.model.entity.User;
 import com.example.meetingroombooking.repository.InvitationRepository;
@@ -17,11 +15,13 @@ import java.util.Optional;
 @Service
 public class InvitationService {
     private final InvitationRepository invitationRepository;
+    private final UserRepository userRepository;
     private final UserService userService;
 
     @Autowired
-    public InvitationService(InvitationRepository invitationRepository, UserService userService) {
+    public InvitationService(InvitationRepository invitationRepository, UserRepository userRepository, UserService userService) {
         this.invitationRepository = invitationRepository;
+        this.userRepository = userRepository;
         this.userService = userService;
     }
 
@@ -64,6 +64,20 @@ public class InvitationService {
         } else {
             throw new RuntimeException("You can't delete this invitation");
         }
+    }
+
+    public List<InvitationDto> getInvitationsForUser(Long id) {
+        User user = userRepository.getById(id);
+
+        List<Invitation> invitations = user.getInvitations();
+
+        List<InvitationDto> result = new ArrayList<>();
+
+        for(Invitation invitation : invitations) {
+            result.add(new InvitationDto(invitation));
+        }
+
+        return result;
     }
 
     private User getUser() {

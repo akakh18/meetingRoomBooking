@@ -6,16 +6,19 @@ import javax.persistence.*;
 @Table(name = "invitations")
 public class Invitation {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.REFRESH)
+    @JoinColumn(name = "HOST_ID", referencedColumnName = "ID")
     private User host;
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.REFRESH)
+    @JoinColumn(name = "GUEST_ID", referencedColumnName = "ID")
     private User guest;
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.REFRESH)
+    @JoinColumn(name = "ROOM_ID", referencedColumnName = "ID")
     private Room room;
 
     public void setId(Long id) {
