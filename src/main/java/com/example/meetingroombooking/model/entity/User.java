@@ -20,8 +20,11 @@ public class User {
     @Column(nullable = false)
     private String password;
 
-    @OneToMany(mappedBy = "guest", cascade = CascadeType.REMOVE)
+    @OneToMany(mappedBy = "guest", cascade = CascadeType.REFRESH)
     private List<Invitation> invitations;
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.REFRESH)
+    private List<Booking> bookings;
 
     public void setId(Long id) {
         this.id = id;

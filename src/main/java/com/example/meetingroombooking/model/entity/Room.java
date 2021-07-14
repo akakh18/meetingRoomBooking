@@ -17,6 +17,10 @@ public class Room {
     @OneToMany(mappedBy = "room", cascade = CascadeType.REFRESH)
     private List<Invitation> invitations;
 
+    @OneToMany(mappedBy = "room", cascade = CascadeType.REFRESH)
+    @Column
+    private List<Booking> bookings;
+
     public Room() {
     }
 

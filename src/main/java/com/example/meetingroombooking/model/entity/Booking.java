@@ -8,12 +8,13 @@ import javax.persistence.*;
 public class Booking {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "ID")
     private Long id;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.REFRESH)
     User user;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.REFRESH)
     Room room;
 
     @Column(nullable = false)
