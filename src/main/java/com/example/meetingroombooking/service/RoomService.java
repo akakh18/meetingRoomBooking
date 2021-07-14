@@ -8,6 +8,7 @@ import com.example.meetingroombooking.model.entity.User;
 import com.example.meetingroombooking.repository.BookingRepository;
 import com.example.meetingroombooking.repository.InvitationRepository;
 import com.example.meetingroombooking.repository.RoomRepository;
+import com.example.meetingroombooking.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,6 +18,7 @@ import java.util.List;
 
 @Service
 public class RoomService {
+    private final UserRepository userRepository;
     private final UserService userService;
     private final RoomRepository roomRepository;
     private final InvitationRepository invitationRepository;
@@ -26,8 +28,9 @@ public class RoomService {
     private static final String USER_NOT_FOUND = "Authenticated user does not exist";
 
     @Autowired
-    public RoomService(RoomRepository roomRepository, UserService userService,
+    public RoomService(UserRepository userRepository, RoomRepository roomRepository, UserService userService,
                        InvitationRepository invitationRepository, BookingRepository bookingRepository) {
+        this.userRepository = userRepository;
         this.roomRepository = roomRepository;
         this.userService = userService;
         this.invitationRepository = invitationRepository;
@@ -76,7 +79,9 @@ public class RoomService {
 
         Invitation newInvitation = new Invitation();
         newInvitation.setHost(host);
-        newInvitation.setGuest(guest.toEntity());
+        User guestUser = userRepository.findByUsername(guest.getUsername())
+                .orElseThrow(() -> new RuntimeException(USER_NOT_FOUND));
+        newInvitation.setGuest(guestUser);
         newInvitation.setRoom(room);
         invitationRepository.save(newInvitation);
 
@@ -86,7 +91,7 @@ public class RoomService {
     @Transactional
     public BookingDto createBooking(Long roomId, Dates dates) {
         Room room = roomRepository.findById(roomId).orElseThrow(() -> new RuntimeException(ROOM_NOT_FOUND));
-        User user = userService.getCurrentUser().orElseThrow(() -> new RuntimeException(USER_NOT_FOUND));;
+        User user = userService.getCurrentUser().orElseThrow(() -> new RuntimeException(USER_NOT_FOUND));
         Booking newBooking = new Booking();
 
         newBooking.setRoom(room);
